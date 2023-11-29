@@ -153,6 +153,10 @@ module "loki_s3_irsa" {
     ]
   }
 
+  depends_on = [
+    module.eks
+  ]
+
   tags = var.tags
 }
 
