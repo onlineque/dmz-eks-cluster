@@ -3,7 +3,7 @@ output "further_instructions" {
     Set up the DNS forwarding on AD DNS by creating a forwarder (needs to be done just once after the EKS cluster has been created):
 
     DNS domain: ${var.cluster_name}.private
-    IP addresses to forward to: ${join(',', data.aws_route53_resolver_endpoint.dns_inbound_resolver.ip_addresses)}
+    IP addresses to forward to: ${join(",", data.aws_route53_resolver_endpoint.dns_inbound_resolver.ip_addresses)}
 
     DO NOT CHECK to save it in Active Directory and replicate, let the timeout be at 5 seconds, which is default
     and save the forwarder setup.
