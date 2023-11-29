@@ -1,0 +1,38 @@
+alertmanager:
+  enabled: false
+grafana:
+  enabled: false
+prometheus:
+  service:
+    type: NodePort
+  ingress:
+    enabled: true
+    annotations:
+      alb.ingress.kubernetes.io/group.name: prometheus
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80},{"HTTPS": 443}]'
+      alb.ingress.kubernetes.io/scheme: internal
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      alb.ingress.kubernetes.io/healthcheck-path: /graph
+      kubernetes.io/ingress.class: alb
+    hosts:
+      - ${prometheus_route53_fqdn}
+      - ${prometheus_internal_fqdn}
+    paths:
+      - /
+    pathType: Prefix
+    tls:
+      - hosts:
+        - ${prometheus_internal_fqdn}
+  prometheusSpec:
+    ## If true, a nil or {} value for prometheus.prometheusSpec.serviceMonitorSelector will cause the
+    ## prometheus resource to be created with selectors based on values in the helm deployment,
+    ## which will also match the servicemonitors created => must be false to be able to monitor things
+    ## deployed outside the 'kube-prometheus-stack' release
+    ##
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+    podMonitorSelectorNilUsesHelmValues: false
+
+    ruleSelectorNilUsesHelmValues: false
+
+    probeSelectorNilUsesHelmValues: false

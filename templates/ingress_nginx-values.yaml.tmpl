@@ -1,0 +1,39 @@
+controller:
+  containerPort:
+    http: 80
+    https: 443
+    special: 8000
+  # -- Will add custom configuration options to Nginx https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
+  config:
+    ssl-redirect: false
+    server-snippet: ${server_snippet}
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 2048Mi
+    requests:
+      cpu: 100m
+      memory: 90Mi
+  service:
+    enabled: true
+    ports:
+      http: 80
+      https: 443
+    targetPorts:
+      http: http
+      https: special
+    type: LoadBalancer
+    external:
+      enabled: false
+    internal:
+      # -- Enables an additional internal load balancer (besides the external one).
+      enabled: true
+      # -- Annotations are mandatory for the load balancer to come up. Varies with the cloud service.
+      annotations: {}
+      ports: {}
+        http: 80
+        https: 443
+      # -- Custom target port mapping for internal service
+      targetPorts:
+        http: http
+        https: special

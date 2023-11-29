@@ -1,0 +1,22 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sContainerLimits
+metadata:
+  name: pod-must-have-limits
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    excludedNamespaces:
+    - kube-system
+    - gatekeeper-system
+    - external-dns
+    - prometheus
+    - velero
+    - cattle-system
+    - ingress-nginx
+    - zabbix
+    - airbyte
+  parameters:
+    cpu: "{{ .Values.limits.cpu }}"
+    memory: "{{ .Values.limits.memory }}"

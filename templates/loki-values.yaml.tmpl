@@ -1,0 +1,107 @@
+loki:
+  auth_enabled: false
+  commonConfig:
+    path_prefix: /var/loki
+    replication_factor: 1
+
+  storage:
+    bucketNames:
+      chunks: ${loki_bucket}
+    type: s3
+
+  query_scheduler:
+    max_outstanding_requests_per_tenant: 4096
+
+  schema_config:
+    configs:
+    - from: "2023-05-31"
+      index:
+        period: 24h
+        prefix: loki_index_
+      store: boltdb-shipper
+      object_store: s3
+      schema: v12
+
+  storage_config:
+    aws:
+      s3: s3://${region}/${loki_bucket}
+      insecure: false
+      s3forcepathstyle: true
+    boltdb_shipper:
+      active_index_directory: /var/loki/index
+      shared_store: s3
+  rulerConfig:
+    storage:
+      type: local
+      local:
+        directory: /var/loki/rules
+
+  limits_config:
+    split_queries_by_interval: 24h
+    max_query_parallelism: 100
+
+  frontend:
+    max_outstanding_per_tenant: 4096
+
+
+serviceAccount:
+  create: true
+  name: loki-sa
+  annotations:
+    eks.amazonaws.com/role-arn: ${sa_role_arn}
+write:
+  replicas: 2
+    
+read:
+  replicas: 1
+
+test:
+  enabled: false
+monitoring:
+  dashboards:
+    enabled: false
+  rules:
+    enabled: false
+  alerts:
+    enabled: false
+  serviceMonitor:
+    enabled: false
+  selfMonitoring:
+    enabled: false
+    lokiCanary:
+      enabled: false
+    grafanaAgent:
+      installOperator: false
+
+backend:
+  replicas: 2
+
+gateway:
+  service:
+    type: NodePort
+  ingress:
+    # -- Specifies whether an ingress for the gateway should be created
+    enabled: true
+    # -- Annotations for the gateway ingress
+    annotations:
+      alb.ingress.kubernetes.io/group.name: loki
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80},{"HTTPS": 443}]'
+      alb.ingress.kubernetes.io/scheme: internal
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      kubernetes.io/ingress.class: alb
+    # -- Labels for the gateway ingress
+    labels: {}
+    # -- Hosts configuration for the gateway ingress
+    hosts:
+      - host: ${loki_gateway_route53_fqdn}
+        paths:
+          - path: /
+            pathType: Prefix
+      - host: ${loki_gateway_internal_fqdn}
+        paths:
+          - path: /
+            pathType: Prefix
+    # -- TLS configuration for the gateway ingress
+    tls:
+      - hosts:
+          - ${loki_gateway_internal_fqdn}
