@@ -77,20 +77,20 @@ variable "application_teams" {
   description = "application teams privileges, quotas, etc."
 }
 
-# variable "crt_secret" {
-#   type        = string
-#   description = "Secret ARN for wildcard ssl crt secret, only the part after the last slash"
-# }
-#
-# variable "key_secret" {
-#   type        = string
-#   description = "Secret ARN for wildcard ssl private key secret, only the part after the last slash"
-# }
-#
-# variable "ca_crt_secret" {
-#   type        = string
-#   description = "Secret ARN for CA certificate secret, only the part after the last slash"
-# }
+variable "crt_secret" {
+  type        = string
+  description = "Secret ARN for wildcard ssl crt secret, only the part after the last slash"
+}
+
+variable "key_secret" {
+  type        = string
+  description = "Secret ARN for wildcard ssl private key secret, only the part after the last slash"
+}
+
+variable "ca_crt_secret" {
+  type        = string
+  description = "Secret ARN for CA certificate secret, only the part after the last slash"
+}
 
 variable "admin_team_arn" {
   type        = string

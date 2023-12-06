@@ -195,7 +195,8 @@ module "eks_blueprints_kubernetes_addons" {
   enable_metrics_server = true
 
   # Enable EFS CSI driver
-  enable_aws_efs_csi_driver = true
+  # Todo: uncomment
+  # enable_aws_efs_csi_driver = true
 
   # Todo
   # Enable EBS CSI driver
@@ -327,10 +328,10 @@ module "eks_blueprints_kubernetes_addons" {
         name  = "controller.service.internal.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-scheme"
         value = "internal"
       },
-      # {
-      #   name  = "controller.service.internal.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-cert"
-      #   value = aws_acm_certificate.wildcard_ssl_certificate.arn
-      # },
+      {
+        name  = "controller.service.internal.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-cert"
+        value = aws_acm_certificate.wildcard_ssl_certificate.arn
+      },
       {
         name  = "controller.service.internal.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-ports"
         value = "443"
