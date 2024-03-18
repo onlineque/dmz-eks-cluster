@@ -83,6 +83,30 @@ module "eks" {
   #create_cluster_security_group = false
   #create_node_security_group    = false
 
+  # fargate profile turned on for any namespace starting with "fargate-"
+  fargate_profiles = merge(
+    { for i in range(2) :
+      "app-wildcard-${element(split("-", local.azs[i]), 2)}" => {
+        ####
+        # Backwards compatibility
+        ####
+        iam_role_name            = "${var.cluster_name}-default-app-wildcard-${element(split("-", local.azs[i]), 2)}"
+        iam_role_use_name_prefix = false
+
+        profile_name = "default-app-wildcard-${element(split("-", local.azs[i]), 2)}"
+        selectors = [
+          {
+            namespace:  "fargate-*"
+          }
+        ]
+
+        # We want to create a profile per AZ for high availability
+        subnet_ids = [element(local.private_subnets, i)]
+      }
+    }
+  )
+
+
   tags = local.tags
 }
 
