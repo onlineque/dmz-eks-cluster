@@ -185,6 +185,24 @@ module "ebs_csi_driver_irsa" {
   tags = local.tags
 }
 
+module "efs_csi_irsa_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  version = "~> 5.20"
+  
+  role_name_prefix = "${var.cluster_name}-efs-cs-driver-"
+
+  attach_efs_csi_policy = true
+
+  oidc_providers = {
+    ex = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["kube-system:efs-csi-controller-sa"]
+    }
+  }
+
+  tags = local.tags
+}
+
 ################################################################################
 # Kubernetes Addons
 ################################################################################
@@ -212,6 +230,7 @@ module "eks_blueprints_kubernetes_addons" {
     }
     aws-efs-csi-driver = {
       most_recent = true
+      service_account_role_arn = module.efs_csi_driver_irsa.iam_role_arn
     }
   }
 
