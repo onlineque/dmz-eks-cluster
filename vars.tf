@@ -13,6 +13,16 @@ variable "cluster_name" {
   description = "EKS cluster name"
 }
 
+variable "private_zone_suffix" {
+  type        = string
+  description = "Private Route53 DNS zone suffix, e.g. private, or local, or whatever.."
+}
+
+variable "transit_vpc_id" {
+  type        = string
+  description = "Transit VPC id"
+}
+
 variable "cluster_version" {
   type        = string
   description = "EKS cluster version"
