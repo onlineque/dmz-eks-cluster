@@ -428,7 +428,7 @@ module "eks_blueprints_kubernetes_addons" {
 
   # Enable external-dns
   enable_external_dns            = true
-  external_dns_route53_zone_arns = [module.zones.route53_zone_zone_arn["${var.cluster_name}.private"]]
+  external_dns_route53_zone_arns = [aws_route53_zone.not_shared_hosted_zone.arn]
 
   external_dns = { # todo check
     # route53_zone_zone_arns = [module.zones.route53_zone_zone_arn["${var.cluster_name}.private"]]
@@ -459,7 +459,7 @@ module "eks_blueprints_kubernetes_addons" {
   }
 
   tags = local.tags
-  depends_on = [module.zones]
+  depends_on = [aws_route53_zone.not_shared_hosted_zone]
 }
 
 # TODO ?
