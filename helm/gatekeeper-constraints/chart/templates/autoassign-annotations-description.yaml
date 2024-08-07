@@ -1,0 +1,14 @@
+apiVersion: mutations.gatekeeper.sh/v1
+kind: AssignMetadata
+metadata:
+  name: autoassign-annotations-description
+spec:
+  match:
+    scope: Namespaced
+    kinds:
+    - apiGroups: ["*"]
+      kinds: ["Pod"]
+  location: "metadata.annotations.description"
+  parameters:
+    assign:
+      value:  "NOT_SET"

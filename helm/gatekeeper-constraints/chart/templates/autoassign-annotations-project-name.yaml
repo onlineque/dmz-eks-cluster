@@ -1,0 +1,14 @@
+apiVersion: mutations.gatekeeper.sh/v1
+kind: AssignMetadata
+metadata:
+  name: autoassign-annotations-project-name
+spec:
+  match:
+    scope: Namespaced
+    kinds:
+    - apiGroups: ["*"]
+      kinds: ["Pod"]
+  location: "metadata.annotations.project_name"
+  parameters:
+    assign:
+      value:  "NOT_SET"
