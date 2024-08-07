@@ -447,12 +447,20 @@ module "eks_blueprints_kubernetes_addons" {
         value = "sync"
       },
       {
-        name  = "podLabels"
-        value = local.pod_labels
+        name  = "podLabels.project_code"
+        value = local.project_code
       },
       {
-        name  = "podAnnotations"
-        value = local.pod_annotations
+        name  = "podAnnotations.project_name"
+        value = local.project_name
+      },
+      {
+        name  = "podAnnotations.responsible"
+        value = local.responsible
+      },
+      {
+        name  = "podAnnotations.description"
+        value = "External DNS - automatic registration of ingress hosts into Route53"
       }
     ]
   }
