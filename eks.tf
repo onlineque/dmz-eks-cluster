@@ -239,6 +239,27 @@ module "eks_blueprints_kubernetes_addons" {
 
   # Enable Metrics server
   enable_metrics_server = true
+  metrics_server = {
+    set = [
+      {
+        name  = "podLabels.project_code"
+        value = local.project_code
+      },
+      {
+        name  = "podAnnotations.project_name"
+        value = local.project_name
+      },
+      {
+        name  = "podAnnotations.responsible"
+        value = local.responsible
+      },
+      {
+        name  = "podAnnotations.description"
+        value = "Kubernetes Metrics Server - exposing metrics API for nodes / pods"
+      }
+    ]
+  }
+
 
   # Enable EFS CSI driver
   # Todo: uncomment
@@ -401,6 +422,22 @@ module "eks_blueprints_kubernetes_addons" {
       {
         name  = "controller.service.internal.targetPorts.https"
         value = "special"
+      },
+      {
+        name  = "podLabels.project_code"
+        value = local.project_code
+      },
+      {
+        name  = "podAnnotations.project_name"
+        value = local.project_name
+      },
+      {
+        name  = "podAnnotations.responsible"
+        value = local.responsible
+      },
+      {
+        name  = "podAnnotations.description"
+        value = "NGINX ingress controller - exposing applications outside the cluster"
       }
     ]
   }
