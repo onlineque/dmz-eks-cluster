@@ -41,26 +41,3 @@ resource "aws_route53_vpc_association_authorization" "route53_association_author
   vpc_id  = var.transit_vpc_id
   zone_id = aws_route53_zone.shared_hosted_zone.id
 }
-
-resource "aws_route53_resolver_endpoint" "dns_inbound_resolver" {
-  name      = "dns_inbound_resolver"
-  direction = "INBOUND"
-
-  security_group_ids = [
-    module.sgr-i-ALL-from-OnPremises.security_group_id
-  ]
-
-  ip_address {
-    subnet_id = var.vpc_subnet1_id
-  }
-
-  ip_address {
-    subnet_id = var.vpc_subnet2_id
-  }
-
-  tags = local.tags
-}
-
-data "aws_route53_resolver_endpoint" "dns_inbound_resolver" {
-  resolver_endpoint_id = aws_route53_resolver_endpoint.dns_inbound_resolver.id
-}
