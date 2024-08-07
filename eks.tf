@@ -11,8 +11,9 @@ locals {
   private_subnets_cidr_blocks = [ var.csr1-cidr-block, var.csr2-cidr-block ]
 
   tags            = var.tags
-  pod_labels      = var.pod_labels
-  pod_annotations = var.pod_annotations
+  project_code    = var.project_code
+  project_name    = var.project_name
+  responsible     = var.responsible
 
   nginx_ingress_server_snippet = <<EOT
     client_max_body_size 50m;
