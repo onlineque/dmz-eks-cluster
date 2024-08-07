@@ -59,16 +59,22 @@ variable "tags" {
   description = "EKS cluster Project tags"
 }
 
-variable "pod_labels" {
-  type        = map(string)
-  default     = {}
-  description = "EKS cluster bundled apps default pod labels"
+variable "project_code" {
+  type        = string
+  default     = ""
+  description = "default project code for EKS bundled workloads"
 }
 
-variable "pod_annotations" {
-  type        = map(string)
-  default     = {}
-  description = "EKS cluster bundled apps default pod annotations"
+variable "project_name" {
+  type        = string
+  default     = ""
+  description = "default project name for EKS bundled workloads"
+}
+
+variable "responsible" {
+  type        = string
+  default     = ""
+  description = "default responsible person for EKS bundled workloads"
 }
 
 variable "managed_node_groups" {
