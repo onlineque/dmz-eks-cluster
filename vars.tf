@@ -59,6 +59,18 @@ variable "tags" {
   description = "EKS cluster Project tags"
 }
 
+variable "pod_labels" {
+  type        = map(string)
+  default     = {}
+  description = "EKS cluster bundled apps default pod labels"
+}
+
+variable "pod_annotations" {
+  type        = map(string)
+  default     = {}
+  description = "EKS cluster bundled apps default pod annotations"
+}
+
 variable "managed_node_groups" {
   type        = map(object({
     instance_types = list(string)

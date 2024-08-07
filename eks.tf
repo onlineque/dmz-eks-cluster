@@ -10,7 +10,9 @@ locals {
   private_subnets = [ var.vpc_subnet1_id, var.vpc_subnet2_id ]
   private_subnets_cidr_blocks = [ var.csr1-cidr-block, var.csr2-cidr-block ]
 
-  tags = var.tags
+  tags            = var.tags
+  pod_labels      = var.pod_labels
+  pod_annotations = var.pod_annotations
 
   nginx_ingress_server_snippet = <<EOT
     client_max_body_size 50m;
@@ -443,6 +445,14 @@ module "eks_blueprints_kubernetes_addons" {
       {
         name  = "policy"
         value = "sync"
+      },
+      {
+        name  = "podLabels"
+        value = local.pod_labels
+      },
+      {
+        name  = "podAnnotations"
+        value = local.pod_annotations
       }
     ]
   }
