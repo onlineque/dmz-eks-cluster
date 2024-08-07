@@ -1,0 +1,14 @@
+apiVersion: mutations.gatekeeper.sh/v1
+kind: AssignMetadata
+metadata:
+  name: autoassign-labels-project-code
+spec:
+  match:
+    scope: Namespaced
+    kinds:
+    - apiGroups: ["*"]
+      kinds: ["Pod"]
+  location: "metadata.labels.project_code"
+  parameters:
+    assign:
+      value:  "NOT_SET"

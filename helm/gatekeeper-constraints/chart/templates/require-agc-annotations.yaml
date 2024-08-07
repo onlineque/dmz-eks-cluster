@@ -1,0 +1,21 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredAnnotations
+metadata:
+  name: agc-required-annotations
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    excludedNamespaces:
+    - airbyte
+    - cattle-system
+    - external-dns
+    - gatekeeper-system
+    - ingress-nginx
+    - kube-system
+    - prometheus
+    - velero
+    - zabbix
+  parameters:
+    annotations: ["project_name","responsible","description"]
