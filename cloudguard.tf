@@ -1,10 +1,11 @@
 resource "kubernetes_manifest" "serviceaccount_cloudguard_controller" {
   manifest = {
     "apiVersion" = "v1"
-    "kind" = "ServiceAccount"
+    "kind"       = "ServiceAccount"
     "metadata" = {
       "creationTimestamp" = null
-      "name" = "cloudguard-controller"
+      "name"              = "cloudguard-controller"
+      "namespace"         = "default"
     }
   }
 }
@@ -12,10 +13,10 @@ resource "kubernetes_manifest" "serviceaccount_cloudguard_controller" {
 resource "kubernetes_manifest" "clusterrole_endpoint_reader" {
   manifest = {
     "apiVersion" = "rbac.authorization.k8s.io/v1"
-    "kind" = "ClusterRole"
+    "kind"       = "ClusterRole"
     "metadata" = {
       "creationTimestamp" = null
-      "name" = "endpoint-reader"
+      "name"              = "endpoint-reader"
     }
     "rules" = [
       {
@@ -37,20 +38,20 @@ resource "kubernetes_manifest" "clusterrole_endpoint_reader" {
 resource "kubernetes_manifest" "clusterrolebinding_allow_cloudguard_access_endpoints" {
   manifest = {
     "apiVersion" = "rbac.authorization.k8s.io/v1"
-    "kind" = "ClusterRoleBinding"
+    "kind"       = "ClusterRoleBinding"
     "metadata" = {
       "creationTimestamp" = null
-      "name" = "allow-cloudguard-access-endpoints"
+      "name"              = "allow-cloudguard-access-endpoints"
     }
     "roleRef" = {
       "apiGroup" = "rbac.authorization.k8s.io"
-      "kind" = "ClusterRole"
-      "name" = "endpoint-reader"
+      "kind"     = "ClusterRole"
+      "name"     = "endpoint-reader"
     }
     "subjects" = [
       {
-        "kind" = "ServiceAccount"
-        "name" = "cloudguard-controller"
+        "kind"      = "ServiceAccount"
+        "name"      = "cloudguard-controller"
         "namespace" = "default"
       },
     ]
@@ -60,10 +61,10 @@ resource "kubernetes_manifest" "clusterrolebinding_allow_cloudguard_access_endpo
 resource "kubernetes_manifest" "clusterrole_pod_reader" {
   manifest = {
     "apiVersion" = "rbac.authorization.k8s.io/v1"
-    "kind" = "ClusterRole"
+    "kind"       = "ClusterRole"
     "metadata" = {
       "creationTimestamp" = null
-      "name" = "pod-reader"
+      "name"              = "pod-reader"
     }
     "rules" = [
       {
@@ -85,20 +86,20 @@ resource "kubernetes_manifest" "clusterrole_pod_reader" {
 resource "kubernetes_manifest" "clusterrolebinding_allow_cloudguard_access_pods" {
   manifest = {
     "apiVersion" = "rbac.authorization.k8s.io/v1"
-    "kind" = "ClusterRoleBinding"
+    "kind"       = "ClusterRoleBinding"
     "metadata" = {
       "creationTimestamp" = null
-      "name" = "allow-cloudguard-access-pods"
+      "name"              = "allow-cloudguard-access-pods"
     }
     "roleRef" = {
       "apiGroup" = "rbac.authorization.k8s.io"
-      "kind" = "ClusterRole"
-      "name" = "pod-reader"
+      "kind"     = "ClusterRole"
+      "name"     = "pod-reader"
     }
     "subjects" = [
       {
-        "kind" = "ServiceAccount"
-        "name" = "cloudguard-controller"
+        "kind"      = "ServiceAccount"
+        "name"      = "cloudguard-controller"
         "namespace" = "default"
       },
     ]
@@ -108,10 +109,10 @@ resource "kubernetes_manifest" "clusterrolebinding_allow_cloudguard_access_pods"
 resource "kubernetes_manifest" "clusterrole_service_reader" {
   manifest = {
     "apiVersion" = "rbac.authorization.k8s.io/v1"
-    "kind" = "ClusterRole"
+    "kind"       = "ClusterRole"
     "metadata" = {
       "creationTimestamp" = null
-      "name" = "service-reader"
+      "name"              = "service-reader"
     }
     "rules" = [
       {
@@ -133,20 +134,20 @@ resource "kubernetes_manifest" "clusterrole_service_reader" {
 resource "kubernetes_manifest" "clusterrolebinding_allow_cloudguard_access_services" {
   manifest = {
     "apiVersion" = "rbac.authorization.k8s.io/v1"
-    "kind" = "ClusterRoleBinding"
+    "kind"       = "ClusterRoleBinding"
     "metadata" = {
       "creationTimestamp" = null
-      "name" = "allow-cloudguard-access-services"
+      "name"              = "allow-cloudguard-access-services"
     }
     "roleRef" = {
       "apiGroup" = "rbac.authorization.k8s.io"
-      "kind" = "ClusterRole"
-      "name" = "service-reader"
+      "kind"     = "ClusterRole"
+      "name"     = "service-reader"
     }
     "subjects" = [
       {
-        "kind" = "ServiceAccount"
-        "name" = "cloudguard-controller"
+        "kind"      = "ServiceAccount"
+        "name"      = "cloudguard-controller"
         "namespace" = "default"
       },
     ]
@@ -156,10 +157,10 @@ resource "kubernetes_manifest" "clusterrolebinding_allow_cloudguard_access_servi
 resource "kubernetes_manifest" "clusterrole_node_reader" {
   manifest = {
     "apiVersion" = "rbac.authorization.k8s.io/v1"
-    "kind" = "ClusterRole"
+    "kind"       = "ClusterRole"
     "metadata" = {
       "creationTimestamp" = null
-      "name" = "node-reader"
+      "name"              = "node-reader"
     }
     "rules" = [
       {
@@ -181,20 +182,20 @@ resource "kubernetes_manifest" "clusterrole_node_reader" {
 resource "kubernetes_manifest" "clusterrolebinding_allow_cloudguard_access_nodes" {
   manifest = {
     "apiVersion" = "rbac.authorization.k8s.io/v1"
-    "kind" = "ClusterRoleBinding"
+    "kind"       = "ClusterRoleBinding"
     "metadata" = {
       "creationTimestamp" = null
-      "name" = "allow-cloudguard-access-nodes"
+      "name"              = "allow-cloudguard-access-nodes"
     }
     "roleRef" = {
       "apiGroup" = "rbac.authorization.k8s.io"
-      "kind" = "ClusterRole"
-      "name" = "node-reader"
+      "kind"     = "ClusterRole"
+      "name"     = "node-reader"
     }
     "subjects" = [
       {
-        "kind" = "ServiceAccount"
-        "name" = "cloudguard-controller"
+        "kind"      = "ServiceAccount"
+        "name"      = "cloudguard-controller"
         "namespace" = "default"
       },
     ]
