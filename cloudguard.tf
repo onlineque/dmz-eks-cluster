@@ -211,6 +211,7 @@ resource "kubernetes_manifest" "secret_cloudguard_controller_secret" {
         "kubernetes.io/service-account.name" = "cloudguard-controller"
       }
       "name" = "cloudguard-controller-secret"
+      "namespace" = "default"
     }
     "type" = "kubernetes.io/service-account-token"
   }
