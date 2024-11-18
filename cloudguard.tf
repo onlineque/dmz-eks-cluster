@@ -201,3 +201,17 @@ resource "kubernetes_manifest" "clusterrolebinding_allow_cloudguard_access_nodes
     ]
   }
 }
+
+resource "kubernetes_manifest" "secret_cloudguard_controller_secret" {
+  manifest = {
+    "apiVersion" = "v1"
+    "kind" = "Secret"
+    "metadata" = {
+      "annotations" = {
+        "kubernetes.io/service-account.name" = "cloudguard-controller"
+      }
+      "name" = "cloudguard-controller-secret"
+    }
+    "type" = "kubernetes.io/service-account-token"
+  }
+}
