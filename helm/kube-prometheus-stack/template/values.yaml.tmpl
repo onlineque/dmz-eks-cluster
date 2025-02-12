@@ -37,17 +37,6 @@ prometheus:
 
     probeSelectorNilUsesHelmValues: false
 
-    storageSpec:
-      volumeClaimTemplate:
-        spec:
-          storageClassName: efs
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 50Gi
-        selector: {}
-
-
 prometheus-node-exporter:
   affinity:
     nodeAffinity:
