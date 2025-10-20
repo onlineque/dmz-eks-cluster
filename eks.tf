@@ -235,6 +235,9 @@ module "eks_blueprints_kubernetes_addons" {
       most_recent = true
       service_account_role_arn = module.efs_csi_driver_irsa.iam_role_arn
     }
+    vpc-cni = {
+      most_recent = true
+    }
   }
 
   # Enable Metrics server
