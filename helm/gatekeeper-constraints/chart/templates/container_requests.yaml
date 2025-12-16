@@ -17,6 +17,7 @@ spec:
     - ingress-nginx
     - zabbix
     - airbyte
+    - goldilocks
   parameters:
     cpu: "{{ .Values.requests.cpu }}"
     memory: "{{ .Values.requests.memory }}"
