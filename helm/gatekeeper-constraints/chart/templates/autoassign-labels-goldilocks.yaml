@@ -1,0 +1,14 @@
+apiVersion: mutations.gatekeeper.sh/v1
+kind: AssignMetadata
+metadata:
+  name: autoassign-labels-goldilocks
+spec:
+  match:
+    scope: Cluster
+    kinds:
+    - apiGroups: ["*"]
+      kinds: ["Namespace"]
+  location: 'metadata.labels."goldilocks.fairwinds.com/enabled"'
+  parameters:
+    assign:
+      value:  "true"
