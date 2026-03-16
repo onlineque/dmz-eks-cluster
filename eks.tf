@@ -454,8 +454,15 @@ module "eks_blueprints_kubernetes_addons" {
   gatekeeper = {
     values = [
       <<-EOT
+        image:
+          repository: 547823348125.dkr.ecr.eu-west-1.amazonaws.com/docker.io/openpolicyagent/gatekeeper
+          crdRepository: 547823348125.dkr.ecr.eu-west-1.amazonaws.com/docker.io/openpolicyagent/gatekeeper-crds
+          release: v3.15.0
         postInstall:
           labelNamespace:
+            image:
+              repository: 547823348125.dkr.ecr.eu-west-1.amazonaws.com/docker.io/openpolicyagent/gatekeeper-crds
+              tag: v3.15.0
             extraRules:
             - apiGroups:
               - management.cattle.io
