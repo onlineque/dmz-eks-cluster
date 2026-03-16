@@ -1,4 +1,8 @@
 loki:
+  image:
+    registry: 547823348125.dkr.ecr.eu-west-1.amazonaws.com
+    repository: docker.io/grafana/loki
+    tag: 2.8.2
   auth_enabled: false
   commonConfig:
     path_prefix: /var/loki
@@ -55,6 +59,12 @@ write:
 read:
   replicas: 1
 
+lokiCanary:
+  image:
+    registry: 547823348125.dkr.ecr.eu-west-1.amazonaws.com
+    repository: docker.io/grafana/loki-canary
+    tag: 2.8.2
+
 test:
   enabled: false
 monitoring:
@@ -74,9 +84,17 @@ monitoring:
       installOperator: false
 
 backend:
+  image:
+    registry: 547823348125.dkr.ecr.eu-west-1.amazonaws.com
+    repository: docker.io/grafana/loki
+    tag: 2.8.2
   replicas: 2
 
 gateway:
+  image:
+    registry: 547823348125.dkr.ecr.eu-west-1.amazonaws.com
+    repository: docker.io/nginxinc/nginx-unprivileged
+    tag: 1.19.4-alpine
   service:
     type: NodePort
   ingress:
