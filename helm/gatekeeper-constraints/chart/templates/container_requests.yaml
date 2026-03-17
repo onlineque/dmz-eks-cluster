@@ -14,6 +14,7 @@ spec:
     - prometheus
     - velero
     - cattle-system
+    - cattle-fleet-system
     - ingress-nginx
     - zabbix
     - airbyte
