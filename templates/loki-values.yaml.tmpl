@@ -59,15 +59,14 @@ write:
 read:
   replicas: 1
 
-lokiCanary:
-  image:
-    registry: 547823348125.dkr.ecr.eu-west-1.amazonaws.com
-    repository: docker.io/grafana/loki-canary
-    tag: 2.8.2
-
 test:
   enabled: false
 monitoring:
+  lokiCanary:
+    image:
+      registry: 547823348125.dkr.ecr.eu-west-1.amazonaws.com
+      repository: docker.io/grafana/loki-canary
+      tag: 2.8.2
   dashboards:
     enabled: false
   rules:
